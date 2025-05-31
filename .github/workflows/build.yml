@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   linux-build:
@@ -36,7 +36,7 @@ jobs:
         
     - name: Generate coverage report
       run: |
-        lcov --capture --directory build --output-file build/coverage.info
+        lcov --capture --directory build --output-file build/coverage.info --ignore-errors mismatch,unused --rc geninfo_unexecuted_blocks=1
         lcov --remove build/coverage.info '/usr/*' --output-file build/coverage.info
         genhtml build/coverage.info --output-directory build/coverage_report
         
